@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.alldo.R;
+import com.example.alldo.databinding.ActivityHomeBinding;
+
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
-
+    ActivityHomeBinding mainBind;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        mainBind = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(mainBind.getRoot());
+        Objects.requireNonNull(getSupportActionBar()).hide();
     }
 }
