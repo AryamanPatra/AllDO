@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/simpleTask"
+        android:icon="@drawable/baseline_carpenter_60"
+        android:title="Task"/>
+    <item
+        android:id="@+id/placeholder"
+
+        />
+    <item
+        android:id="@+id/weatherTask"
+        android:icon="@drawable/baseline_cloud_60"
+        android:title="Weather"/>
+</menu>
