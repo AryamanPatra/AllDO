@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FAB">
+        <item name="android:backgroundTint">@color/lc1</item>
+        <item name="android:tint">@color/lc3</item>
+        <item name="android:outlineAmbientShadowColor">@color/lc1</item>
+        <item name="android:outlineSpotShadowColor">@color/lc1</item>
+    </style>
+</resources>

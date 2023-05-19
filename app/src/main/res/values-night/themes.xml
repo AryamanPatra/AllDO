@@ -2,15 +2,32 @@
     <!-- Base application theme. -->
     <style name="Theme.AllDO" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/dc2</item>
+        <item name="colorPrimaryVariant">@color/dc1</item>
+        <item name="colorOnPrimary">@color/dc3</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/dc4</item>
+        <item name="colorSecondaryVariant">@color/dc2</item>
+        <item name="colorOnSecondary">@color/dc3</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!--  Dark mode  -->
+    <style name="SCREEN">
+        <item name="android:background">@color/dc3</item>
+    </style>
+    <style name="TEXT">
+        <item name="android:textColor">@color/dc1</item>
+    </style>
+    <style name="FAB">
+        <item name="android:backgroundTint">@color/dc1</item>
+        <item name="android:tint">@color/dc3</item>
+        <item name="android:outlineAmbientShadowColor">@color/dc1</item>
+        <item name="android:outlineSpotShadowColor">@color/dc1</item>
+    </style>
+    <style name="BOTTOMNAV">
+        <item name="android:backgroundTint">@color/dc2</item>
     </style>
 </resources>

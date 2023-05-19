@@ -7,4 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <!-- Light mode colors   -->
+    <color name="lc1">#E03529</color>
+    <color name="lc2">#D7867B</color>
+    <color name="lc3">#FFDFDB</color>
+    <color name="lc4">#201614</color>
+
+    <!-- Dark mode colors   -->
+    <color name="dc1">#FFDFDB</color>
+    <color name="dc2">#71423C</color>
+    <color name="dc3">#201614</color>
+    <color name="dc4">#F5B0AB</color>
+
 </resources>

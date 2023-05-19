@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".ui.ui_elements.HomeActivity">
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -14,6 +15,7 @@
         app:fabCradleMargin="@dimen/_13sdp"
         android:paddingVertical="@dimen/_9sdp"
         app:fabCradleVerticalOffset="@dimen/_4sdp"
+        style="@style/BOTTOMNAV"
         app:fabCradleRoundedCornerRadius="@dimen/_20sdp"
         app:addElevationShadow="true"
 
@@ -26,6 +28,7 @@
             app:menu="@menu/bottom_nav_menu"
             android:background="@drawable/transparent_background"
             app:itemIconSize="@dimen/_30sdp"
+
             android:layout_marginHorizontal="@dimen/_16sdp"
             app:labelVisibilityMode="unlabeled"
             app:itemHorizontalTranslationEnabled="false"
@@ -39,9 +42,12 @@
         android:layout_height="wrap_content"
         app:fabCustomSize="@dimen/_80sdp"
         app:maxImageSize="@dimen/_60sdp"
-        android:src="@drawable/baseline_add_60"
+        app:srcCompat="@drawable/baseline_add_60"
+        app:tint="@null"
         app:layout_anchor="@id/bottomAppbar"
-        android:contentDescription="TODO"
+        android:contentDescription="This adds creates a task"
+        style="@style/FAB"
+        app:backgroundTint="@null"
         tools:ignore="ContentDescription,HardcodedText" />
 
     <FrameLayout
