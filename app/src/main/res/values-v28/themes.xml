@@ -7,4 +7,11 @@
         <item name="android:outlineAmbientShadowColor">@color/lc1</item>
         <item name="android:outlineSpotShadowColor">@color/lc1</item>
     </style>
+
+    <style name="TITLE">
+        <item name="android:outlineSpotShadowColor">@color/lc4</item>
+        <item name="android:outlineAmbientShadowColor">@color/lc4</item>
+        <item name="android:textColor">@color/lc4</item>
+        <item name="android:shadowColor">@color/lc4</item>
+    </style>
 </resources>
