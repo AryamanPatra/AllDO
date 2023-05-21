@@ -12,12 +12,6 @@
         android:theme="@style/Theme.AllDO"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ui_elements.TaskActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ui_elements.AboutActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.ui_elements.SettingsActivity"
             android:exported="false" />
         <activity

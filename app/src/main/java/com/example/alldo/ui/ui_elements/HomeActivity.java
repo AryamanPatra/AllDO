@@ -7,26 +7,31 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.alldo.R;
 import com.example.alldo.databinding.ActivityHomeBinding;
+import com.example.alldo.databinding.LayoutTaskBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding mainBind;
+    LayoutTaskBinding taskBind;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBind = ActivityHomeBinding.inflate(getLayoutInflater());
+        taskBind = LayoutTaskBinding.inflate(getLayoutInflater());
         setContentView(mainBind.getRoot());
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         replaceFragment(new TaskFragment());
         mainBind.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){

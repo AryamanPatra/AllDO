@@ -32,4 +32,7 @@
         <item name="android:textColor">@color/lc4</item>
         <item name="android:shadowColor">@color/lc4</item>
     </style>
+    <style name="NAV_MENU">
+        <item name="android:tint">@color/lc4</item>
+    </style>
 </resources>
