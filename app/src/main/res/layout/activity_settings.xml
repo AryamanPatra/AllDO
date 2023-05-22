@@ -1,9 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    tools:context=".ui.ui_elements.HomeActivity"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".ui.ui_elements.SettingsActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            >
+            <ImageView
+                android:id="@+id/nav_menu_button_settings"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="10"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/baseline_menu_60"
+                style="@style/NAV_MENU"
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:contentDescription="@string/nav_drawer"
+                />
+            <TextView
+                android:id="@+id/title_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="90"
+                android:text="@string/settings"
+                android:gravity="center"
+                android:paddingEnd="@dimen/_40sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:paddingTop="@dimen/_11sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:textSize="@dimen/_16sdp"
+                android:letterSpacing="0.15"
+                android:textStyle="bold"
+                android:fontFamily="@font/font_awesome_6_free_solid_900"
+                style="@style/TITLE"
+                />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragmentFrameLoaderSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_drawer_view_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_drawer"
+        app:itemIconSize="@dimen/_22sdp"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        style="@style/Nav_Drawer_Style"
+        />
+</androidx.drawerlayout.widget.DrawerLayout>
