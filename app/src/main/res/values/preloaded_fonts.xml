@@ -2,7 +2,5 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/lexend</item>
-        <item>@font/nunito_sans_extrabold</item>
-        <item>@font/paytone_one</item>
     </array>
 </resources>

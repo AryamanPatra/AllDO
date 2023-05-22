@@ -35,4 +35,14 @@
     <style name="NAV_MENU">
         <item name="android:tint">@color/dc4</item>
     </style>
+    <style name="AppTheme.NoActionBar" parent="Theme.AllDO">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Nav_Drawer_Style" parent="Widget.Design.NavigationView">
+        <item name="android:fontFamily">@font/lexend</item>
+        <item name="android:backgroundTint">@color/dc3</item>
+        <item name="itemTextColor">@color/dc4</item>
+        <item name="itemIconTint">@color/dc1</item>
+    </style>
 </resources>
