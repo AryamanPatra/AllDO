@@ -76,38 +76,36 @@ public class SettingsFragment extends Fragment {
     boolean nightMODE;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    Thread thread;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String[] themeStrings = {"Light","Dark","System Default"};
         ListView lv = requireView().findViewById(R.id.themeChangeLV);
-        ArrayAdapter<String> ad = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1,themeStrings);
+        ArrayAdapter<String> ad = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1,themeStrings);
         lv.setAdapter(ad);
 
         sharedPreferences = requireContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night",false);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                editor = sharedPreferences.edit();
-                switch (i){
-                    case 0:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        editor.putBoolean(getString(R.string.night),false);
-                        editor.putBoolean(getString(R.string.sdt),false);
-                        break;
-                    case 1:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        editor.putBoolean(getString(R.string.night),true);
-                        editor.putBoolean(getString(R.string.sdt),false);
-                        break;
-                    case 2:
-                        editor.putBoolean(getString(R.string.sdt),true);
-                        break;
-                }
-                editor.apply();
+        lv.setOnItemClickListener((adapterView, view1, i, l) -> {
+            editor = sharedPreferences.edit();
+            switch (i){
+                case 0:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor.putBoolean(getString(R.string.night),false);
+                    editor.putBoolean(getString(R.string.sdt),false);
+                    break;
+                case 1:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor.putBoolean(getString(R.string.night),true);
+                    editor.putBoolean(getString(R.string.sdt),false);
+                    break;
+                case 2:
+                    editor.putBoolean(getString(R.string.sdt),true);
+                    break;
             }
+            editor.apply();
         });
     }
 }

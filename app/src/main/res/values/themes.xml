@@ -45,4 +45,13 @@
         <item name="itemTextColor">@color/lc4</item>
         <item name="itemIconTint">@color/lc1</item>
     </style>
+    <style name="NAV_Header_Style">
+        <item name="android:background">@drawable/navheadbg</item>
+    </style>
+    <color name="BOTTOM_NAV_ICON_checked">
+        @color/lc4
+    </color>
+    <color name="BOTTOM_NAV_ICON_unchecked">
+        @color/lc3
+    </color>
 </resources>

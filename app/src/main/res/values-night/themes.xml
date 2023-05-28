@@ -45,4 +45,13 @@
         <item name="itemTextColor">@color/dc4</item>
         <item name="itemIconTint">@color/dc1</item>
     </style>
+    <style name="NAV_Header_Style">
+        <item name="android:background">@drawable/navheadbg_night</item>
+    </style>
+    <color name="BOTTOM_NAV_ICON_checked">
+        @color/dc4
+    </color>
+    <color name="BOTTOM_NAV_ICON_unchecked">
+        @color/dc3
+    </color>
 </resources>

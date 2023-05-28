@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabCradleMargin="@dimen/_13sdp"
-        android:paddingVertical="@dimen/_9sdp"
         app:fabCradleVerticalOffset="@dimen/_4sdp"
         style="@style/BOTTOMNAV"
         app:fabCradleRoundedCornerRadius="@dimen/_20sdp"
@@ -39,7 +38,8 @@
             app:menu="@menu/bottom_nav_menu"
             android:background="@drawable/transparent_background"
             app:itemIconSize="@dimen/_30sdp"
-
+            app:itemIconTint="@drawable/bottom_nav_selector"
+            android:paddingVertical="@dimen/_9sdp"
             android:layout_marginHorizontal="@dimen/_16sdp"
             app:labelVisibilityMode="unlabeled" app:itemHorizontalTranslationEnabled="false"
             />
