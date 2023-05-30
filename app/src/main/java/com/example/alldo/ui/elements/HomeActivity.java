@@ -1,4 +1,4 @@
-package com.example.alldo.ui.ui_elements;
+package com.example.alldo.ui.elements;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,15 +13,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
+
 import com.example.alldo.R;
 import com.example.alldo.databinding.ActivityHomeBinding;
 import com.example.alldo.databinding.LayoutTaskBinding;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
-
-import java.nio.channels.Selector;
-import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ActivityHomeBinding mainBind;

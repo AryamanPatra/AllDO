@@ -1,4 +1,4 @@
-package com.example.alldo.ui.ui_elements;
+package com.example.alldo.ui.elements;
 
 import android.os.Bundle;
 

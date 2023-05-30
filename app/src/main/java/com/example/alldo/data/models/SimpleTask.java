@@ -1,23 +1,30 @@
-package com.example.alldo.data;
+package com.example.alldo.data.models;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
 
-public class Task {
+@Entity(
+        tableName = "simpleTask"
+)
+final public class SimpleTask {
+    @PrimaryKey
+    int id;
     private String taskText;
     private LocalDateTime alarm;
     private int repeat;
 
-
     private boolean check;
 
-    Task(){}
-    Task(String input){
+    SimpleTask(){}
+    SimpleTask(String input){
         setTaskText(input);
         setAlarm(null);
         setRepeat(0);
         setCheck(false);
     }
-    Task(String taskText,LocalDateTime alarm,int repeat,boolean check){
+    SimpleTask(String taskText, LocalDateTime alarm, int repeat, boolean check){
         setTaskText(taskText);
         setAlarm(alarm);
         setRepeat(repeat);

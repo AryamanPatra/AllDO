@@ -12,12 +12,12 @@
         android:theme="@style/Theme.AllDO"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ui_elements.SettingsActivity"
+            android:name=".ui.elements.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ui.ui_elements.HomeActivity"
+            android:parentActivityName=".ui.elements.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.ui_elements.HomeActivity"
+            android:name=".ui.elements.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="true">
             <intent-filter>
