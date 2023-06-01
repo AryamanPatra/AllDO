@@ -48,10 +48,16 @@
     <style name="NAV_Header_Style">
         <item name="android:background">@drawable/navheadbg</item>
     </style>
+    <style name="RADIO_BUTTON">
+        <item name="android:buttonTint">@color/lc1</item>
+    </style>
     <color name="BOTTOM_NAV_ICON_checked">
         @color/lc4
     </color>
     <color name="BOTTOM_NAV_ICON_unchecked">
         @color/lc3
+    </color>
+    <color name="TEXT_HINT">
+        #B1201614
     </color>
 </resources>

@@ -2,23 +2,22 @@ package com.example.alldo.data;
 
 import java.time.LocalDateTime;
 
-public class Task {
-    private String taskText;
+public class SimpleTask {
+    private String title;
+    private String details;
     private LocalDateTime alarm;
     private int repeat;
-
-
     private boolean check;
 
-    Task(){}
-    Task(String input){
-        setTaskText(input);
+    SimpleTask(){}
+    SimpleTask(String input){
+        setTitle(input);
         setAlarm(null);
         setRepeat(0);
         setCheck(false);
     }
-    Task(String taskText,LocalDateTime alarm,int repeat,boolean check){
-        setTaskText(taskText);
+    SimpleTask(String title, LocalDateTime alarm, int repeat, boolean check){
+        setTitle(title);
         setAlarm(alarm);
         setRepeat(repeat);
         setCheck(check);
@@ -26,6 +25,12 @@ public class Task {
 
 
     //    getter and setters
+    public String getDetails() {
+        return details;
+    }
+    public void setDetails(String details) {
+        this.details = details;
+    }
     public boolean isCheck() {
         return check;
     }
@@ -41,12 +46,12 @@ public class Task {
         this.repeat = repeat;
     }
 
-    public String getTaskText() {
-        return taskText;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTaskText(String taskText) {
-        this.taskText = taskText;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDateTime getAlarm() {

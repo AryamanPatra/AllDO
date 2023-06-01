@@ -19,7 +19,7 @@
         <item name="android:background">@color/dc3</item>
     </style>
     <style name="TEXT">
-        <item name="android:textColor">@color/dc1</item>
+        <item name="android:textColor">@color/dc4</item>
     </style>
     <style name="FAB">
         <item name="android:backgroundTint">@color/dc1</item>
@@ -48,10 +48,16 @@
     <style name="NAV_Header_Style">
         <item name="android:background">@drawable/navheadbg_night</item>
     </style>
+    <style name="RADIO_BUTTON">
+        <item name="android:buttonTint">@color/dc1</item>
+    </style>
     <color name="BOTTOM_NAV_ICON_checked">
         @color/dc4
     </color>
     <color name="BOTTOM_NAV_ICON_unchecked">
         @color/dc3
+    </color>
+    <color name="TEXT_HINT">
+        #B1F5B0AB
     </color>
 </resources>
