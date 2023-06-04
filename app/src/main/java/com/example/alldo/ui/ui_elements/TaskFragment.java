@@ -1,14 +1,26 @@
 package com.example.alldo.ui.ui_elements;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alldo.R;
+import com.example.alldo.data.SimpleTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +74,33 @@ public class TaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_task, container, false);
+    }
+
+    RecyclerView rv;
+    List<SimpleTask> dataset;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        dataset = new ArrayList<>();
+        dataset.add(new SimpleTask("Do the dishes"));
+        dataset.add(new SimpleTask("Do homework"));
+        dataset.add(new SimpleTask("Wash your clothes because they are getting dirtier"));
+        rv = requireView().findViewById(R.id.taskRVs);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        CustomAdapter customAdapter = new CustomAdapter(dataset, new OnItemClickListener() {
+            @Override
+            public void onItemTaskClick(CheckBox checkBox, TextView textView) {
+                if(!textView.getPaint().isStrikeThruText()) {
+                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    textView.setAlpha(0.7f);
+                }
+                else {
+                    textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    textView.setAlpha(1f);
+                }
+            }
+        });
+        rv.setAdapter(customAdapter);
+
     }
 }

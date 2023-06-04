@@ -1,5 +1,7 @@
 package com.example.alldo.data;
 
+import android.view.View;
+
 import java.time.LocalDateTime;
 
 public class SimpleTask {
@@ -10,7 +12,7 @@ public class SimpleTask {
     private boolean check;
 
     SimpleTask(){}
-    SimpleTask(String input){
+    public SimpleTask(String input){
         setTitle(input);
         setAlarm(null);
         setRepeat(0);
@@ -60,5 +62,8 @@ public class SimpleTask {
 
     public void setAlarm(LocalDateTime alarm) {
         this.alarm = alarm;
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
     }
 }
