@@ -48,9 +48,6 @@
     <style name="NAV_Header_Style">
         <item name="android:background">@drawable/navheadbg_night</item>
     </style>
-    <style name="RADIO_BUTTON">
-        <item name="android:buttonTint">@color/dc1</item>
-    </style>
     <color name="BOTTOM_NAV_ICON_checked">
         @color/dc4
     </color>
@@ -59,5 +56,8 @@
     </color>
     <color name="TEXT_HINT">
         #B1F5B0AB
+    </color>
+    <color name="RADIO_TINT">
+        @color/dc1
     </color>
 </resources>

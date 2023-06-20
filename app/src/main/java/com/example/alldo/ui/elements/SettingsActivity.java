@@ -1,4 +1,4 @@
-package com.example.alldo.ui.ui_elements;
+package com.example.alldo.ui.elements;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +9,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.alldo.R;
 import com.example.alldo.databinding.ActivitySettingsBinding;
@@ -26,6 +24,8 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         mainBind = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(mainBind.getRoot());
+
+//        Loading fragment with the provided intent
         fragLoadSignal = getIntent().getIntExtra(getString(R.string.fragLoadOpt),0);
         if(fragLoadSignal==0){
             replaceFragment(new SettingsFragment());
@@ -36,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
             mainBind.titleSettings.setText(getText(R.string.about_us));
         }
 
+//        For opening NavDrawer
         mainBind.navMenuButtonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
+//        On NavDrawer Item Selection
         mainBind.navDrawerViewSettings.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -74,7 +76,19 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
                 return true;
             }
         });
+
     }
+
+    /*
+        UTIL Methods
+    * */
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
+    }
+
+
     protected void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -82,8 +96,4 @@ public class SettingsActivity extends AppCompatActivity implements NavigationVie
         fragmentTransaction.commit();
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return true;
-    }
 }

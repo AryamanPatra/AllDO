@@ -1,4 +1,4 @@
-package com.example.alldo.ui.ui_elements;
+package com.example.alldo.ui.elements;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,10 +12,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.alldo.R;
 
@@ -73,10 +71,12 @@ public class SettingsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
+//    GLOBAL VARIABLES
     boolean nightMODE;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    Thread thread;
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -85,9 +85,12 @@ public class SettingsFragment extends Fragment {
         ArrayAdapter<String> ad = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1,themeStrings);
         lv.setAdapter(ad);
 
+//        loading current theme
         sharedPreferences = requireContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night",false);
 
+
+//        The theme switcher code
         lv.setOnItemClickListener((adapterView, view1, i, l) -> {
             editor = sharedPreferences.edit();
             switch (i){

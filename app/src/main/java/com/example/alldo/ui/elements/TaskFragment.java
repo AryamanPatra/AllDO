@@ -1,5 +1,6 @@
-package com.example.alldo.ui.ui_elements;
+package com.example.alldo.ui.elements;
 
+import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.os.Bundle;
 
@@ -14,10 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.alldo.R;
 import com.example.alldo.data.SimpleTask;
+import com.example.alldo.databinding.ActivityHomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,9 @@ public class TaskFragment extends Fragment {
 
     public TaskFragment() {
         // Required empty public constructor
+    }
+    public TaskFragment(ActivityHomeBinding homeBinding){
+        this.homeBinding = homeBinding;
     }
 
     /**
@@ -78,16 +82,21 @@ public class TaskFragment extends Fragment {
 
     RecyclerView rv;
     List<SimpleTask> dataset;
+    ActivityHomeBinding homeBinding;
+    CustomAdapter customAdapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dataset = new ArrayList<>();
+//        Demo code - Will delete later
         dataset.add(new SimpleTask("Do the dishes"));
         dataset.add(new SimpleTask("Do homework"));
         dataset.add(new SimpleTask("Wash your clothes because they are getting dirtier"));
         rv = requireView().findViewById(R.id.taskRVs);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CustomAdapter customAdapter = new CustomAdapter(dataset, new OnItemClickListener() {
+
+//        To add custom on Item onClick listener to recycler view
+        customAdapter = new CustomAdapter(dataset, new OnItemClickListener() {
             @Override
             public void onItemTaskClick(CheckBox checkBox, TextView textView) {
                 if(!textView.getPaint().isStrikeThruText()) {
@@ -102,5 +111,12 @@ public class TaskFragment extends Fragment {
         });
         rv.setAdapter(customAdapter);
 
+    }
+
+//    Passing data from Host Activity to create Task in this fragment
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateTaskList(SimpleTask task){
+        dataset.add(task);
+        customAdapter.notifyDataSetChanged();
     }
 }

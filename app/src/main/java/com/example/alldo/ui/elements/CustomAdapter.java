@@ -1,4 +1,4 @@
-package com.example.alldo.ui.ui_elements;
+package com.example.alldo.ui.elements;
 
 
 import android.view.LayoutInflater;
@@ -18,8 +18,11 @@ import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
+// GLOBAL VARIABLES
     private final List<SimpleTask> simpleTaskList;
     private final OnItemClickListener listener;
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,9 +34,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             linearLayout = (LinearLayout) view.findViewById(R.id.simpleTaskll);
         }
 
+
         public LinearLayout getLinearLayout() {
             return linearLayout;
         }
+
 
         public void bind(final CheckBox checkBox, final TextView textView, final OnItemClickListener listener) {
             checkBox.setOnClickListener(new View.OnClickListener() {

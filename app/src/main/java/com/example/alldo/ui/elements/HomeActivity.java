@@ -1,6 +1,7 @@
-package com.example.alldo.ui.ui_elements;
+package com.example.alldo.ui.elements;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
@@ -9,30 +10,43 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+
 import com.example.alldo.R;
+import com.example.alldo.data.SimpleTask;
 import com.example.alldo.databinding.ActivityHomeBinding;
 import com.example.alldo.databinding.LayoutTaskBinding;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
-import java.nio.channels.Selector;
-import java.util.Objects;
-
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+//    GLOBAL VARIABLES
     ActivityHomeBinding mainBind;
-    LayoutTaskBinding taskBind;
+    Context context;
+    TaskFragment taskFragment;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Context context = this;
+
+        context = this;
         super.onCreate(savedInstanceState);
         mainBind = ActivityHomeBinding.inflate(getLayoutInflater());
-        taskBind = LayoutTaskBinding.inflate(getLayoutInflater());
         setContentView(mainBind.getRoot());
+
+//          when opening app for first time
+        if (savedInstanceState==null){
+            taskFragment = new TaskFragment();
+            replaceFragment(taskFragment);
+            mainBind.navDrawerViewHome.setCheckedItem(R.id.nav_draw_home);
+        }
 
 //        SharedPrefs to load the theme
         SharedPreferences sharedPreferences = getSharedPreferences("MODE",Context.MODE_PRIVATE);
@@ -45,8 +59,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-
+//        For Opening the Drawer
         mainBind.navMenuButtonHome.setOnClickListener(view -> mainBind.drawerLayoutHome.openDrawer(mainBind.navDrawerViewHome));
+
+//        For selecting inside the drawer
         mainBind.navDrawerViewHome.setNavigationItemSelectedListener(item -> {
             mainBind.navDrawerViewHome.setCheckedItem(item.getItemId());
             Intent intent = new Intent();
@@ -68,15 +84,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             return true;
         });
 
-        if (savedInstanceState==null){
-            replaceFragment(new TaskFragment());
-            mainBind.navDrawerViewHome.setCheckedItem(R.id.nav_draw_home);
-        }
-
+//        For selecting Items at Bottom Nav Bar
         mainBind.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.simpleTask:
-                    replaceFragment(new TaskFragment());
+                    taskFragment = new TaskFragment(mainBind);
+                    replaceFragment(taskFragment);
                     break;
                 case R.id.weatherTask:
                     replaceFragment(new WeatherFragment());
@@ -84,12 +97,37 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             return true;
         });
+
+//        For adding task in clicking FAB
+        mainBind.addTaskFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("New Task");
+                EditText editText = new EditText(getApplicationContext());
+                builder.setView(editText);
+                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i){
+                        String title = editText.getText().toString();
+                        taskFragment.updateTaskList(new SimpleTask(title));
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
+
+/*
+        UTIL Methods
+*/
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
+
 
     protected void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
