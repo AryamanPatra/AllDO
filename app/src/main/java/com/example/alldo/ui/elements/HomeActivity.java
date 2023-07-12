@@ -9,13 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.alldo.R;
@@ -102,18 +106,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mainBind.addTaskFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("New Task");
-                EditText editText = new EditText(getApplicationContext());
-                builder.setView(editText);
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                Dialog addTaskDialog = new Dialog(context);
+                addTaskDialog.setContentView(R.layout.add_task_dialog);
+                addTaskDialog.show();
+                Button cancel = addTaskDialog.findViewById(R.id.btnCancelAddTask);
+                Button add = addTaskDialog.findViewById(R.id.btnAddAddTask);
+                addTaskDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i){
-                        String title = editText.getText().toString();
-                        taskFragment.updateTaskList(new SimpleTask(title));
+                    public void onClick(View view) {
+                        addTaskDialog.dismiss();
                     }
                 });
-                builder.create().show();
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String s = ((EditText)addTaskDialog.findViewById(R.id.addTaskTitle)).getText().toString();
+                        if(!s.equals(""))
+                            taskFragment.updateTaskList(new SimpleTask(s));
+                        addTaskDialog.dismiss();
+                    }
+                });
             }
         });
     }

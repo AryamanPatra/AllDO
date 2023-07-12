@@ -14,7 +14,7 @@
         android:layout_height="@dimen/_38sdp"
         android:clickable="true"
         style="@android:style/Widget.CompoundButton.RadioButton"
-        android:buttonTint="@color/RADIO_TINT"
+        android:buttonTint="@color/c1"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_weight="90"
         android:gravity="center_vertical"
