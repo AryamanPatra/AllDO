@@ -19,7 +19,7 @@
         <item name="android:background">@color/dc3</item>
     </style>
     <style name="TEXT">
-        <item name="android:textColor">@color/dc1</item>
+        <item name="android:textColor">@color/dc4</item>
     </style>
     <style name="FAB">
         <item name="android:backgroundTint">@color/dc1</item>
@@ -48,10 +48,41 @@
     <style name="NAV_Header_Style">
         <item name="android:background">@drawable/navheadbg_night</item>
     </style>
-    <color name="BOTTOM_NAV_ICON_checked">
-        @color/dc4
+    <style name="datePickerCustomStyle" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="android:font">@font/lexend</item>
+        <item name="colorAccent">@color/dc4</item>
+        <item name="android:headerBackground">@color/dc4</item>
+        <item name="android:textColorPrimaryInverse">@color/dc3</item>
+        <item name="android:textColorSecondaryInverse">@color/dc2</item>
+        <item name="background">@color/dc3</item>
+        <item name="colorSurface">@color/dc3</item>
+        <item name="colorButtonNormal">@color/dc4</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/buttonBarStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/buttonBarStyle</item>
+    </style>
+    <style name="buttonBarStyle">
+        <item name="android:textColor">@color/dc1</item>
+    </style>
+    <style name="timePickerCustomStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimaryInverse">@color/dc3</item>
+        <item name="android:textColorSecondaryInverse">@color/dc2</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/buttonBarStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/buttonBarStyle</item>
+    </style>
+    <color name="c1">
+        @color/dc1
     </color>
-    <color name="BOTTOM_NAV_ICON_unchecked">
+    <color name="c2">
+        @color/dc2
+    </color>
+    <color name="c3">
         @color/dc3
     </color>
+    <color name="c4">
+        @color/dc4
+    </color>
+    <color name="TEXT_HINT">
+        #B1F5B0AB
+    </color>
+
 </resources>

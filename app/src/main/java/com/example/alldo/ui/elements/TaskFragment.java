@@ -1,14 +1,32 @@
 package com.example.alldo.ui.elements;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.alldo.R;
+import com.example.alldo.data.models.SimpleTask;
+import com.example.alldo.databinding.ActivityHomeBinding;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +46,9 @@ public class TaskFragment extends Fragment {
 
     public TaskFragment() {
         // Required empty public constructor
+    }
+    public TaskFragment(ActivityHomeBinding homeBinding){
+        this.homeBinding = homeBinding;
     }
 
     /**
@@ -62,5 +83,70 @@ public class TaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_task, container, false);
+    }
+
+    RecyclerView rv;
+    List<SimpleTask> dataset;
+    ActivityHomeBinding homeBinding;
+    CustomAdapter customAdapter;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        dataset = new ArrayList<>();
+//        Demo code - Will delete later
+        dataset.add(new SimpleTask("Do the dishes"));
+        dataset.add(new SimpleTask("Do homework"));
+        dataset.add(new SimpleTask("Wash your clothes because they are getting dirtier"));
+        rv = requireView().findViewById(R.id.taskRVs);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//        To add custom on Item onClick listener to recycler view
+        customAdapter = new CustomAdapter(dataset, new OnItemClickListener() {
+            @Override
+            public void onItemTaskCheckClick(CheckBox checkBox,SimpleTask simpleTask, TextView textView) {
+                LinearLayout ll = (LinearLayout)textView.getParent();
+                TextView descTv = ll.findViewById(R.id.descSimpleTask);
+                LinearLayout alarmLl = ll.findViewById(R.id.alarmSimpleTask);
+                if(checkBox.isChecked()) {
+                    descTv.setPaintFlags(descTv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    descTv.setAlpha(0.4f);
+                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    textView.setAlpha(0.55f);
+                    alarmLl.setVisibility(View.GONE);
+                    simpleTask.setCheck(true);
+                }
+                else {
+                    descTv.setPaintFlags(descTv.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    descTv.setAlpha(0.8f);
+                    textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    textView.setAlpha(1f);
+                    alarmLl.setVisibility(View.VISIBLE);
+                    simpleTask.setCheck(false);
+                }
+            }
+
+            @Override
+            public void onItemTaskMarkImpClick(CheckBox checkBox, TextView textView) {
+                LinearLayout ll = (LinearLayout) ((ViewGroup)textView.getParent());
+                if(checkBox.isChecked()){
+                    ll.setBackground(getResources().getDrawable(R.drawable.mark_imp_bg));
+                }
+                else{
+                    ll.setBackground(new ColorDrawable(Color.TRANSPARENT));
+                }
+            }
+        });
+        rv.setAdapter(customAdapter);
+
+    }
+
+//    Passing data from Host Activity to create Task in this fragment
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateTaskList(SimpleTask task){
+        dataset.add(task);
+        customAdapter.notifyDataSetChanged();
+    }
+    public int getDataSetSize(){
+        return dataset.size();
     }
 }

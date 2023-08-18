@@ -14,6 +14,28 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="datePickerCustomStyle" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="android:font">@font/lexend</item>
+        <item name="colorAccent">@color/lc4</item>
+        <item name="android:headerBackground">@color/lc4</item>
+        <item name="android:textColorPrimaryInverse">@color/lc3</item>
+        <item name="android:textColorSecondaryInverse">@color/lc2</item>
+        <item name="background">@color/lc3</item>
+        <item name="colorSurface">@color/lc3</item>
+        <item name="colorButtonNormal">@color/lc4</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/buttonBarStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/buttonBarStyle</item>
+    </style>
+    <style name="buttonBarStyle">
+        <item name="android:textColor">@color/lc1</item>
+    </style>
+    <style name="timePickerCustomStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimaryInverse">@color/lc3</item>
+        <item name="android:textColorSecondaryInverse">@color/lc2</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/buttonBarStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/buttonBarStyle</item>
+    </style>
+
     <!--  Light mode  -->
     <style name="SCREEN">
         <item name="android:background">@color/lc3</item>
@@ -48,10 +70,19 @@
     <style name="NAV_Header_Style">
         <item name="android:background">@drawable/navheadbg</item>
     </style>
-    <color name="BOTTOM_NAV_ICON_checked">
+    <color name="c1">
+        @color/lc1
+    </color>
+    <color name="c2">
+        @color/lc2
+    </color>
+    <color name="c3">
+        @color/lc3
+    </color>
+    <color name="c4">
         @color/lc4
     </color>
-    <color name="BOTTOM_NAV_ICON_unchecked">
-        @color/lc3
+    <color name="TEXT_HINT">
+        #B1201614
     </color>
 </resources>

@@ -14,4 +14,25 @@
         <item name="android:textColor">@color/dc4</item>
         <item name="android:shadowColor">@color/dc4</item>
     </style>
+    <style name="datePickerCustomStyle" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="android:font">@font/lexend</item>
+        <item name="colorAccent">@color/dc4</item>
+        <item name="android:headerBackground">@color/dc4</item>
+        <item name="android:textColorPrimaryInverse">@color/dc3</item>
+        <item name="android:textColorSecondaryInverse">@color/dc2</item>
+        <item name="background">@color/dc3</item>
+        <item name="colorSurface">@color/dc3</item>
+        <item name="colorButtonNormal">@color/dc4</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/buttonBarStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/buttonBarStyle</item>
+    </style>
+    <style name="buttonBarStyle">
+        <item name="android:textColor">@color/dc1</item>
+    </style>
+    <style name="timePickerCustomStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimaryInverse">@color/dc3</item>
+        <item name="android:textColorSecondaryInverse">@color/dc2</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/buttonBarStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/buttonBarStyle</item>
+    </style>
 </resources>

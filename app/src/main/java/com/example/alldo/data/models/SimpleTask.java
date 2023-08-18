@@ -21,18 +21,24 @@ final public class SimpleTask {
     private boolean check;
 
     SimpleTask(){}
-    SimpleTask(String input){
+    public SimpleTask(String input){
         setTitle(input);
+        setDetails("");
         setAlarm(null);
         setRepeat(0);
         setCheck(false);
     }
-    SimpleTask(String title,String details, Calendar alarm, int repeat, boolean check){
+    public SimpleTask(String title, String details, Calendar alarm, int repeat, boolean check){
         setTitle(title);
         setDetails(details);
         setAlarm(alarm);
         setRepeat(repeat);
         setCheck(check);
+    }
+
+    public SimpleTask(String title, String desc) {
+        setTitle(title);
+        setDetails(desc);
     }
 
 

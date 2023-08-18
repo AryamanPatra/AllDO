@@ -71,10 +71,12 @@ public class SettingsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
+//    GLOBAL VARIABLES
     boolean nightMODE;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    Thread thread;
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -83,9 +85,12 @@ public class SettingsFragment extends Fragment {
         ArrayAdapter<String> ad = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1,themeStrings);
         lv.setAdapter(ad);
 
+//        loading current theme
         sharedPreferences = requireContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
         nightMODE = sharedPreferences.getBoolean("night",false);
 
+
+//        The theme switcher code
         lv.setOnItemClickListener((adapterView, view1, i, l) -> {
             editor = sharedPreferences.edit();
             switch (i){
