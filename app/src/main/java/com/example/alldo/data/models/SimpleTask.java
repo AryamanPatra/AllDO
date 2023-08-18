@@ -2,8 +2,10 @@ package com.example.alldo.data.models;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 @Entity(
         tableName = "simpleTask"
@@ -11,21 +13,23 @@ import java.time.LocalDateTime;
 final public class SimpleTask {
     @PrimaryKey
     int id;
-    private String taskText;
-    private LocalDateTime alarm;
+    private String title;
+    private String details;
+    @TypeConverters(CalendarConverter.class)
+    private Calendar alarm;
     private int repeat;
-
     private boolean check;
 
     SimpleTask(){}
     SimpleTask(String input){
-        setTaskText(input);
+        setTitle(input);
         setAlarm(null);
         setRepeat(0);
         setCheck(false);
     }
-    SimpleTask(String taskText, LocalDateTime alarm, int repeat, boolean check){
-        setTaskText(taskText);
+    SimpleTask(String title,String details, Calendar alarm, int repeat, boolean check){
+        setTitle(title);
+        setDetails(details);
         setAlarm(alarm);
         setRepeat(repeat);
         setCheck(check);
@@ -40,27 +44,36 @@ final public class SimpleTask {
     public void setCheck(boolean check) {
         this.check = check;
     }
+
     public int getRepeat() {
         return repeat;
     }
-    
+
     public void setRepeat(int repeat) {
         this.repeat = repeat;
     }
 
-    public String getTaskText() {
-        return taskText;
+    public String getDetails() {
+        return details;
     }
 
-    public void setTaskText(String taskText) {
-        this.taskText = taskText;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
-    public LocalDateTime getAlarm() {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Calendar getAlarm() {
         return alarm;
     }
 
-    public void setAlarm(LocalDateTime alarm) {
+    public void setAlarm(Calendar alarm) {
         this.alarm = alarm;
     }
 }
