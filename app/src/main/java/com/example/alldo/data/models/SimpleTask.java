@@ -1,12 +1,11 @@
 package com.example.alldo.data.models;
 
-import androidx.room.ColumnInfo;
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 @Entity(
@@ -14,7 +13,8 @@ import java.util.Calendar;
 )
 final public class SimpleTask {
     @PrimaryKey
-    private int id;
+    @NonNull
+    private String id;
     private String title;
     private String details;
     @TypeConverters(CalendarConverter.class)
@@ -23,7 +23,9 @@ final public class SimpleTask {
     private boolean check;
 
     @Ignore
-    public SimpleTask(){}
+    public SimpleTask(){
+        setId("null");
+    }
     @Ignore
     public SimpleTask(String input){
         setTitle(input);
@@ -31,6 +33,7 @@ final public class SimpleTask {
         setAlarm(null);
         setRepeat(0);
         setCheck(false);
+        setId("null");
     }
 
     @Ignore
@@ -40,15 +43,17 @@ final public class SimpleTask {
         setAlarm(alarm);
         setRepeat(repeat);
         setCheck(check);
+        setId("null");
     }
 
     @Ignore
     public SimpleTask(String title, String desc) {
         setTitle(title);
         setDetails(desc);
+        setId("null");
     }
 
-    public SimpleTask(int id,String title, String details, Calendar alarm, int repeat, boolean check){
+    public SimpleTask(@NonNull String id, String title, String details, Calendar alarm, int repeat, boolean check){
         setId(id);
         setTitle(title);
         setDetails(details);
@@ -57,14 +62,25 @@ final public class SimpleTask {
         setCheck(check);
     }
 
+    @Ignore
+    public SimpleTask(String id, String title, String details) {
+        setId(id);
+        setTitle(title);
+        setDetails(details);
+        setAlarm(null);
+        setRepeat(1);
+        setCheck(false);
+    }
+
 
     //    getter and setters
 
-    public int getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 

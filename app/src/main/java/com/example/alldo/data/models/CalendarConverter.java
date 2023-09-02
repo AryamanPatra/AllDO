@@ -15,7 +15,7 @@ public class CalendarConverter {
     public Calendar stringToCalendar(String value){
         Gson gson = new Gson();
 
-        if(value == null)
+        if(value.equals("null"))
             return null;
 
         Calendar calendar;
@@ -33,6 +33,9 @@ public class CalendarConverter {
     @TypeConverter
     public String calendarToString(Calendar calendar){
         Gson gson = new Gson();
-        return gson.toJson(calendar);
+        if (calendar==null)
+            return "null";
+        else
+            return gson.toJson(calendar);
     }
 }

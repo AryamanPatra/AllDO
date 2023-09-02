@@ -35,7 +35,7 @@ public class SimpleTaskDaoTest {
     @Test
     public void insertTaskAndGetTask(){
 
-        SimpleTask task = new SimpleTask(34,"title","description", Calendar.getInstance(),1,false);
+        SimpleTask task = new SimpleTask("34","title","description", Calendar.getInstance(),1,false);
 
         database.simpleTaskDao().upsert(task);
 
