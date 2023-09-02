@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class SimpleTaskRepository {
     private final SimpleTaskDao simpleTaskDao;
-    private LiveData<List<SimpleTask>> simpleTaskList;
+    private final LiveData<List<SimpleTask>> simpleTaskList;
 
     public SimpleTaskRepository(Application application){
         AllDoDatabase database =  AllDoDatabase.getInstance(application);
@@ -25,7 +25,7 @@ public class SimpleTaskRepository {
     public void insertData(SimpleTask simpleTask){new InsertTask(simpleTaskDao).execute(simpleTask);}
     public void updateData(SimpleTask simpleTask){new UpdateTask(simpleTaskDao).execute(simpleTask);}
     public void deleteData(SimpleTask simpleTask){new DeleteTask(simpleTaskDao).execute(simpleTask);}
-    public LiveData<List<SimpleTask>> getAllData(SimpleTask simpleTask){
+    public LiveData<List<SimpleTask>> getAllData(){
         return simpleTaskList;
     }
 

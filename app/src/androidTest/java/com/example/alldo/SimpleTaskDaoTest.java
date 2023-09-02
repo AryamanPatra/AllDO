@@ -30,7 +30,7 @@ public class SimpleTaskDaoTest {
 
     @Test
     public void insertTaskAndGetTask(){
-        
+
 
     }
 }
