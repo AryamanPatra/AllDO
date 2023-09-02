@@ -1,29 +1,28 @@
 package com.example.alldo.data.sources.local;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Upsert;
+import androidx.room.Update;
+
 import com.example.alldo.data.models.SimpleTask;
 import java.util.List;
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
 
 @Dao
 public interface SimpleTaskDao {
 
+    @Insert
+    void insert(SimpleTask simpleTask);
+
+    @Update
+    void update(SimpleTask simpleTask);
+
+    @Delete
+    void delete(SimpleTask simpleTask);
+
     @Query("SELECT * FROM simpleTask")
-    public Flowable<List<SimpleTask>> observeAll();
-
-    @Upsert
-    public Completable upsert(SimpleTask task);
-
-    @Upsert
-    public Completable upsertAll(List<SimpleTask> taskList);
-
-    @Query("UPDATE simpleTask SET `check`=:check WHERE `id`=:id")
-    public Completable updateCompleted(int id, boolean check);
-
-    @Query("DELETE FROM simpleTask")
-    public Completable deleteAll();
+    LiveData<List<SimpleTask>> getAllData();
 
 }

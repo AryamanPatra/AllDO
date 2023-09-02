@@ -8,4 +8,6 @@
     <string name="fragLoadOpt">Load the fragment of desired choice</string>
     <string name="sdt">system_default_theme</string>
     <string name="night">night</string>
+
+    <string name="database_name">AllDO.db</string>
 </resources>
