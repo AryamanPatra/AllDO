@@ -12,7 +12,7 @@ import com.example.alldo.data.repositories.SimpleTaskRepository;
 import java.util.List;
 
 public class SimpleTaskViewModel extends AndroidViewModel {
-    private SimpleTaskRepository simpleTaskRepo;
+    private final SimpleTaskRepository simpleTaskRepo;
     private LiveData<List<SimpleTask>> simpleTaskList;
 
     public SimpleTaskViewModel(@NonNull Application application) {

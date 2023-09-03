@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,6 +90,7 @@ public class TaskFragment extends Fragment {
     List<SimpleTask> dataset;
     ActivityHomeBinding homeBinding;
     CustomAdapter customAdapter;
+    ItemTouchHelper.SimpleCallback simpleCallback;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -137,6 +139,21 @@ public class TaskFragment extends Fragment {
             }
         });
         rv.setAdapter(customAdapter);
+
+        simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                dataset.remove(viewHolder.getAdapterPosition());
+                customAdapter.notifyDataSetChanged();
+            }
+        };
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(rv);
 
     }
 

@@ -21,9 +21,8 @@ final public class SimpleTask {
     private int repeat;
     private boolean check;
 
-    @Ignore
     public SimpleTask(){}
-    @Ignore
+
     public SimpleTask(String input){
         setTitle(input);
         setDetails("");
@@ -32,7 +31,6 @@ final public class SimpleTask {
         setCheck(false);
     }
 
-    @Ignore
     public SimpleTask(String title, String details, Calendar alarm, int repeat, boolean check){
         setTitle(title);
         setDetails(details);
@@ -41,7 +39,6 @@ final public class SimpleTask {
         setCheck(check);
     }
 
-    @Ignore
     public SimpleTask(String title, String desc) {
         setTitle(title);
         setDetails(desc);
