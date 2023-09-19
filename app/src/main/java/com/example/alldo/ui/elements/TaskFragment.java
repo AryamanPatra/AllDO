@@ -122,7 +122,8 @@ public class TaskFragment extends Fragment {
                     descTv.setAlpha(0.8f);
                     textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     textView.setAlpha(1f);
-                    alarmLl.setVisibility(View.VISIBLE);
+                    if(!((TextView)alarmLl.findViewById(R.id.alarmDateSimpleTask)).getText().toString().equals("Tomorrow"))
+                        alarmLl.setVisibility(View.VISIBLE);
                     simpleTask.setCheck(false);
                 }
             }
