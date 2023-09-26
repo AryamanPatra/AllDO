@@ -10,10 +10,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import android.widget.TextView;
 import com.example.alldo.R;
 import com.example.alldo.data.models.SimpleTask;
 import com.example.alldo.databinding.ActivityHomeBinding;
+import com.example.alldo.ui.states.SimpleTaskViewModel;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -91,9 +95,12 @@ public class TaskFragment extends Fragment {
     ActivityHomeBinding homeBinding;
     CustomAdapter customAdapter;
     ItemTouchHelper.SimpleCallback simpleCallback;
+    private SimpleTaskViewModel simpleTaskViewModel;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        simpleTaskViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(SimpleTaskViewModel.class);
         dataset = new ArrayList<>();
 //        Demo code - Will delete later
         dataset.add(new SimpleTask("Do the dishes"));
@@ -150,18 +157,32 @@ public class TaskFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                SimpleTask deleteTask = dataset.get(viewHolder.getAdapterPosition());
                 dataset.remove(viewHolder.getAdapterPosition());
+                simpleTaskViewModel.delete(deleteTask);
                 customAdapter.notifyDataSetChanged();
             }
         };
         new ItemTouchHelper(simpleCallback).attachToRecyclerView(rv);
+
+//        loading stored data from database
+        simpleTaskViewModel.getAllData().observe(getViewLifecycleOwner(), new Observer<List<SimpleTask>>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onChanged(List<SimpleTask> simpleTasks) {
+                Log.d("Room debug",simpleTasks.size()+"");
+                dataset.clear();
+                dataset.addAll(simpleTasks);
+                customAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
 //    Passing data from Host Activity to create Task in this fragment
     @SuppressLint("NotifyDataSetChanged")
     public void updateTaskList(SimpleTask task){
-        dataset.add(task);
+        simpleTaskViewModel.insert(task);
         customAdapter.notifyDataSetChanged();
     }
     public int getDataSetSize(){

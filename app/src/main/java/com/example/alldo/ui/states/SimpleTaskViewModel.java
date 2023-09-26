@@ -13,7 +13,15 @@ import java.util.List;
 
 public class SimpleTaskViewModel extends AndroidViewModel {
     private final SimpleTaskRepository simpleTaskRepo;
-    private LiveData<List<SimpleTask>> simpleTaskList;
+    private final LiveData<List<SimpleTask>> simpleTaskList;
+
+    public SimpleTaskRepository getSimpleTaskRepo() {
+        return simpleTaskRepo;
+    }
+
+    public LiveData<List<SimpleTask>> getSimpleTaskList() {
+        return simpleTaskList;
+    }
 
     public SimpleTaskViewModel(@NonNull Application application) {
         super(application);
