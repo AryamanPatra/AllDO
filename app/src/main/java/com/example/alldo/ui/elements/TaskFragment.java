@@ -1,7 +1,9 @@
 package com.example.alldo.ui.elements;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
@@ -102,10 +104,7 @@ public class TaskFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         simpleTaskViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getActivity().getApplication())).get(SimpleTaskViewModel.class);
         dataset = new ArrayList<>();
-//        Demo code - Will delete later
-        dataset.add(new SimpleTask("Do the dishes"));
-        dataset.add(new SimpleTask("Do homework"));
-        dataset.add(new SimpleTask("Wash your clothes because they are getting dirtier"));
+
         rv = requireView().findViewById(R.id.taskRVs);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -133,6 +132,13 @@ public class TaskFragment extends Fragment {
                         alarmLl.setVisibility(View.VISIBLE);
                     simpleTask.setCheck(false);
                 }
+            }
+
+            @Override
+            public void onItemTaskBodyClick(SimpleTask simpleTask, TextView textView) {
+                Intent intent = new Intent(getActivity(), EditTaskActivity.class);
+                intent.putExtra("chosenTaskID",simpleTask.getId());
+                startActivity(intent);
             }
 
             @Override

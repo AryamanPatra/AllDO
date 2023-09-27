@@ -56,6 +56,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                     listener.onItemTaskMarkImpClick(markImp,textView);
                 }
             });
+
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemTaskBodyClick(simpleTask,textView);
+                }
+            });
         }
     }
 

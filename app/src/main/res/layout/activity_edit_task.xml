@@ -65,6 +65,7 @@
         android:clickable="true"
         android:drawablePadding="@dimen/_10sdp"
         android:fontFamily="@font/lexend"
+        android:letterSpacing="0.04"
         android:hint="Add date &amp; time"
         android:paddingHorizontal="@dimen/_20sdp"
         android:paddingVertical="@dimen/_10sdp"
@@ -119,9 +120,9 @@
         android:id="@+id/edit_task_save_changes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:fontFamily="@font/lexend"
         android:gravity="end"
-        android:clickable="true"
         android:letterSpacing="0.15"
         android:padding="@dimen/_18sdp"
         android:text="Save Changes"
@@ -132,6 +133,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_task_check"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
