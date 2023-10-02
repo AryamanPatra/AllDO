@@ -2,6 +2,7 @@ package com.example.alldo.ui.elements;
 
 
 import android.annotation.SuppressLint;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,16 +84,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 // STEP 3: Replace the contents of a view (invoked by the layout manager)
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull CustomAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TextView titleTv = (TextView) holder.getLinearLayout().findViewById(R.id.titleSimpleTask);
         TextView descTv = (TextView) holder.getLinearLayout().findViewById(R.id.descSimpleTask);
         LinearLayout alarmLl = (LinearLayout) holder.getLinearLayout().findViewById(R.id.alarmSimpleTask);
+        CheckBox taskCheckbox = (CheckBox) holder.getLinearLayout().findViewById(R.id.check_box_task);
         TextView alarmTimeTv = (TextView) alarmLl.findViewById(R.id.alarmTimeSimpleTask);
         TextView alarmDateTv = (TextView) alarmLl.findViewById(R.id.alarmDateSimpleTask);
         ImageView alarmRepeatImv = (ImageView) alarmLl.findViewById(R.id.alarmRepeatImv);
         holder.bind(holder.getLinearLayout().findViewById(R.id.check_box_task),simpleTaskList.get(position),holder.getLinearLayout().findViewById(R.id.titleSimpleTask), holder.getLinearLayout().findViewById(R.id.markImpSimpleTask), listener);
         titleTv.setText(simpleTaskList.get(position).getTitle());
         descTv.setText(simpleTaskList.get(position).getDetails());
+        descTv.setVisibility(View.GONE);
 
         Calendar instanceCalendar = simpleTaskList.get(position).getAlarm();
         if(instanceCalendar!=null){
@@ -103,8 +106,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 alarmRepeatImv.setVisibility(View.VISIBLE);
         }
 
-        if(!simpleTaskList.get(position).getDetails().equals(""))
+        if(!(simpleTaskList.get(position).getDetails().equals("") || simpleTaskList.get(position).getDetails()==null))
             descTv.setVisibility(View.VISIBLE);
+
+        if(simpleTaskList.get(position).isCheck()){
+            taskCheckbox.setChecked(simpleTaskList.get(position).isCheck());
+            descTv.setPaintFlags(descTv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            descTv.setAlpha(0.4f);
+            titleTv.setPaintFlags(titleTv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            titleTv.setAlpha(0.55f);
+            alarmLl.setVisibility(View.GONE);
+        }
     }
 
     @Override
