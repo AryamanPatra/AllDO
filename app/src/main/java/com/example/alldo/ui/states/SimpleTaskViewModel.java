@@ -26,7 +26,7 @@ public class SimpleTaskViewModel extends AndroidViewModel {
     public SimpleTaskViewModel(@NonNull Application application) {
         super(application);
         simpleTaskRepo = new SimpleTaskRepository(application);
-        simpleTaskList= simpleTaskRepo.getAllData();
+        simpleTaskList = simpleTaskRepo.getAllData();
     }
 
     public void insert(SimpleTask simpleTask){

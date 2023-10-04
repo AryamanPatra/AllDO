@@ -183,7 +183,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         int repeat = Integer.parseInt(((EditText)addTaskDialog.findViewById(R.id.addTaskRepeat)).getText().toString());
                         if(!title.equals("")){
                             if(calendarUsed[0]){
-                                SimpleTask task = new SimpleTask(title,desc,calendar,repeat,false);
+                                SimpleTask task = new SimpleTask(title,desc,calendar,repeat,false,false);
                                 taskFragment.updateTaskList(task);
                                 Intent intent = new Intent(HomeActivity.this,TaskNotificationService.class);
                                 Gson gson = new Gson();

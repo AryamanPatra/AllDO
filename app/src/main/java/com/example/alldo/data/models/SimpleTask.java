@@ -20,6 +20,8 @@ final public class SimpleTask {
     private Calendar alarm;
     private int repeat;
     private boolean check;
+    private boolean markImp;
+
 
     public SimpleTask(){}
 
@@ -29,14 +31,16 @@ final public class SimpleTask {
         setAlarm(null);
         setRepeat(0);
         setCheck(false);
+        setMarkImp(false);
     }
 
-    public SimpleTask(String title, String details, Calendar alarm, int repeat, boolean check){
+    public SimpleTask(String title, String details, Calendar alarm, int repeat, boolean check, boolean markImp){
         setTitle(title);
         setDetails(details);
         setAlarm(alarm);
         setRepeat(repeat);
         setCheck(check);
+        setMarkImp(markImp);
     }
 
     public SimpleTask(String title, String desc) {
@@ -93,5 +97,12 @@ final public class SimpleTask {
 
     public void setAlarm(Calendar alarm) {
         this.alarm = alarm;
+    }
+    public boolean isMarkImp() {
+        return markImp;
+    }
+
+    public void setMarkImp(boolean markImp) {
+        this.markImp = markImp;
     }
 }

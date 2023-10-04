@@ -10,7 +10,7 @@ import com.example.alldo.R;
 import com.example.alldo.data.models.SimpleTask;
 
 
-@Database(entities = {SimpleTask.class},version = 1,exportSchema = false)
+@Database(entities = {SimpleTask.class},version = 2,exportSchema = false)
 public abstract class AllDoDatabase extends RoomDatabase {
     private static AllDoDatabase instance;
 

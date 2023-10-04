@@ -2,6 +2,7 @@ package com.example.alldo.ui.elements;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 // GLOBAL VARIABLES
     private final List<SimpleTask> simpleTaskList;
     private final OnItemClickListener listener;
+    private final Context context;
 
 
 
@@ -54,7 +56,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             markImp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemTaskMarkImpClick(markImp,textView);
+                    listener.onItemTaskMarkImpClick(simpleTask,markImp,textView);
                 }
             });
 
@@ -68,7 +70,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
 //    STEP 1: Initialize the dataset of adapter
-    public CustomAdapter(List<SimpleTask> dataset,OnItemClickListener listener){
+    public CustomAdapter(Context context,List<SimpleTask> dataset,OnItemClickListener listener){
+        this.context = context;
         simpleTaskList = dataset;
         this.listener = listener;
     }
@@ -88,7 +91,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         TextView titleTv = (TextView) holder.getLinearLayout().findViewById(R.id.titleSimpleTask);
         TextView descTv = (TextView) holder.getLinearLayout().findViewById(R.id.descSimpleTask);
         LinearLayout alarmLl = (LinearLayout) holder.getLinearLayout().findViewById(R.id.alarmSimpleTask);
+        LinearLayout parentLl = (LinearLayout) titleTv.getParent();
         CheckBox taskCheckbox = (CheckBox) holder.getLinearLayout().findViewById(R.id.check_box_task);
+        CheckBox markImpCheckbox = (CheckBox) holder.getLinearLayout().findViewById(R.id.markImpSimpleTask);
         TextView alarmTimeTv = (TextView) alarmLl.findViewById(R.id.alarmTimeSimpleTask);
         TextView alarmDateTv = (TextView) alarmLl.findViewById(R.id.alarmDateSimpleTask);
         ImageView alarmRepeatImv = (ImageView) alarmLl.findViewById(R.id.alarmRepeatImv);
@@ -116,6 +121,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             titleTv.setPaintFlags(titleTv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             titleTv.setAlpha(0.55f);
             alarmLl.setVisibility(View.GONE);
+        }
+
+        if(simpleTaskList.get(position).isMarkImp()){
+            markImpCheckbox.setChecked(true);
+            parentLl.setBackground(context.getDrawable(R.drawable.mark_imp_bg));
         }
     }
 

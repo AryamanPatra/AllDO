@@ -86,8 +86,7 @@ public class TaskFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_task, container, false);
     }
@@ -109,7 +108,7 @@ public class TaskFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 //        To add custom on Item onClick listener to recycler view
-        customAdapter = new CustomAdapter(dataset, new OnItemClickListener() {
+        customAdapter = new CustomAdapter(this.getActivity(),dataset, new OnItemClickListener() {
             @Override
             public void onItemTaskCheckClick(CheckBox checkBox,SimpleTask simpleTask, TextView textView) {
                 LinearLayout ll = (LinearLayout)textView.getParent();
@@ -144,7 +143,7 @@ public class TaskFragment extends Fragment {
             }
 
             @Override
-            public void onItemTaskMarkImpClick(CheckBox checkBox, TextView textView) {
+            public void onItemTaskMarkImpClick(SimpleTask simpleTask,CheckBox checkBox, TextView textView) {
                 LinearLayout ll = (LinearLayout) ((ViewGroup)textView.getParent());
                 if(checkBox.isChecked()){
                     ll.setBackground(getResources().getDrawable(R.drawable.mark_imp_bg));
@@ -152,6 +151,8 @@ public class TaskFragment extends Fragment {
                 else{
                     ll.setBackground(new ColorDrawable(Color.TRANSPARENT));
                 }
+                simpleTask.setMarkImp(checkBox.isChecked());
+                simpleTaskViewModel.update(simpleTask);
             }
         });
         rv.setAdapter(customAdapter);
