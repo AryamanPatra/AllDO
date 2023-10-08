@@ -172,7 +172,10 @@ public class EditTaskActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                chosenTask.setRepeat(Integer.parseInt(editable.toString()));
+                if(!editable.toString().equals(""))
+                    chosenTask.setRepeat(Integer.parseInt(editable.toString()));
+                else
+                    chosenTask.setRepeat(0);
             }
         });
 

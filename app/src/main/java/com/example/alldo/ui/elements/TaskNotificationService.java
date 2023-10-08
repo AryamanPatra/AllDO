@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.system.Os;
 import android.util.Log;
@@ -35,6 +36,8 @@ public class TaskNotificationService extends Service {
         int channelID = intent.getIntExtra(AlarmReceiver.CHANNEL_ID,0);
 
         SimpleTask task = gson.fromJson(taskJson,SimpleTask.class);
+
+//        It's ok from here
         Calendar calendar = task.getAlarm();
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -54,9 +57,10 @@ public class TaskNotificationService extends Service {
                 time = time + (1000 * 60 * 60 * 24);
         }
 
-
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,time,
-                pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            alarmManager.canScheduleExactAlarms();
+        }
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,time, pendingIntent);
 
         Log.d("Notification","Notification onStartCommand() executed");
         return Service.START_REDELIVER_INTENT;
