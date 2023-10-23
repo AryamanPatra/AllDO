@@ -3,15 +3,18 @@ package com.example.alldo.ui.elements;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,7 +32,6 @@ import android.widget.TimePicker;
 import com.example.alldo.R;
 import com.example.alldo.data.models.SimpleTask;
 import com.example.alldo.databinding.ActivityHomeBinding;
-import com.example.alldo.ui.states.SimpleTaskViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
@@ -185,14 +187,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                             if(calendarUsed[0]){
                                 SimpleTask task = new SimpleTask(title,desc,calendar,repeat,false,false);
                                 taskFragment.updateTaskList(task);
-                                Intent intent = new Intent(HomeActivity.this,TaskNotificationService.class);
-                                Gson gson = new Gson();
-                                String taskJson = gson.toJson(task);
 
-                                intent.putExtra(AlarmReceiver.TASK_ID,taskJson);
-                                intent.putExtra(AlarmReceiver.CHANNEL_ID,taskFragment.getDataSetSize()-1);
-
-                                startService(intent);
+//                                Work from here
+                                scheduleNotification(task,calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+//                                to here
                             }
                             else
                                 taskFragment.updateTaskList(new SimpleTask(title,desc));
@@ -226,6 +224,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentFrameLoaderHome,fragment);
         fragmentTransaction.commit();
+    }
+
+    private void scheduleNotification (SimpleTask task , long delay) {
+        Intent notificationIntent = new Intent( this, ReminderReceiver.class ) ;
+        notificationIntent.putExtra(ReminderReceiver.NOTIFICATION_ID , (int)task.getId() ) ;
+        Gson gson = new Gson();
+        String json = gson.toJson(task);
+        notificationIntent.putExtra(ReminderReceiver.NOTIFICATION,json);
+
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, (int)task.getId() , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.RTC_WAKEUP , delay , pendingIntent) ;
     }
 
 }
