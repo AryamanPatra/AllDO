@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.alldo.R;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     ActivityHomeBinding binding;
     Context context;
     TaskFragment taskFragment;
+    String currentFragment;
 
 
     @Override
@@ -55,9 +57,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 //          when opening app for first time
 
-            taskFragment = new TaskFragment();
-            replaceFragment(taskFragment);
-            binding.navDrawerViewHome.setCheckedItem(R.id.nav_draw_home);
+        taskFragment = new TaskFragment();
+        currentFragment = "TaskFrag";
+        replaceFragment(taskFragment);
+        binding.navDrawerViewHome.setCheckedItem(R.id.nav_draw_home);
 
 
 //        SharedPrefs to load the theme
@@ -101,10 +104,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.simpleTask:
+                    currentFragment = "TaskFrag";
                     taskFragment = new TaskFragment(binding);
                     replaceFragment(taskFragment);
                     break;
                 case R.id.weatherTask:
+                    currentFragment = "WeatherFrag";
                     replaceFragment(new WeatherFragment());
                     break;
             }
@@ -115,97 +120,115 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         binding.addTaskFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog addTaskDialog = new Dialog(context);
-                addTaskDialog.setContentView(R.layout.add_task_dialog);
-                addTaskDialog.show();
-                Button cancel = addTaskDialog.findViewById(R.id.btnCancelAddTask);
-                Button add = addTaskDialog.findViewById(R.id.btnAddAddTask);
-                EditText addTaskDate = addTaskDialog.findViewById(R.id.addTaskDate);
-                ImageButton datePickerButton = addTaskDialog.findViewById(R.id.addTaskDatePicker);
-                Calendar calendar = Calendar.getInstance();
-                final boolean[] calendarUsed = {false};
-                addTaskDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                if (currentFragment.equals("WeatherFrag")){
+                    createWeatherDialog(context);
+                }
+                else{
+                    Dialog addTaskDialog = new Dialog(context);
+                    addTaskDialog.setContentView(R.layout.add_task_dialog);
+                    addTaskDialog.show();
+                    Button cancel = addTaskDialog.findViewById(R.id.btnCancelAddTask);
+                    Button add = addTaskDialog.findViewById(R.id.btnAddAddTask);
+                    EditText addTaskDate = addTaskDialog.findViewById(R.id.addTaskDate);
+                    ImageButton datePickerButton = addTaskDialog.findViewById(R.id.addTaskDatePicker);
+                    Calendar calendar = Calendar.getInstance();
+                    final boolean[] calendarUsed = {false};
+                    addTaskDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                datePickerButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        final int[] date = {calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)};
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(HomeActivity.this,R.style.datePickerCustomStyle,new DatePickerDialog.OnDateSetListener() {
-                            @SuppressLint("DefaultLocale")
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                date[0]=year;
-                                date[1]=month;
-                                date[2]=day;
-                                calendar.set(Calendar.YEAR,year);
-                                calendar.set(Calendar.MONTH,month);
-                                calendar.set(Calendar.DAY_OF_MONTH,day);
-                                calendarUsed[0] = true;
+                    datePickerButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            final int[] date = {calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)};
+                            DatePickerDialog datePickerDialog = new DatePickerDialog(HomeActivity.this,R.style.datePickerCustomStyle,new DatePickerDialog.OnDateSetListener() {
+                                @SuppressLint("DefaultLocale")
+                                @Override
+                                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                    date[0]=year;
+                                    date[1]=month;
+                                    date[2]=day;
+                                    calendar.set(Calendar.YEAR,year);
+                                    calendar.set(Calendar.MONTH,month);
+                                    calendar.set(Calendar.DAY_OF_MONTH,day);
+                                    calendarUsed[0] = true;
 
 
-                                final String[] time = new String[1];
-                                Dialog timePickerDialog = new Dialog(context);
-                                timePickerDialog.setContentView(R.layout.custom_timepicker_dialog);
-                                timePickerDialog.show();
-                                TimePicker timePicker = timePickerDialog.findViewById(R.id.timePicker);
-                                Button timePickerOk = timePickerDialog.findViewById(R.id.timePickerOkBtn);
-                                Button timePickerCancel = timePickerDialog.findViewById(R.id.timePickerCancelBtn);
-                                timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-                                    @Override
-                                    public void onTimeChanged(TimePicker timePicker, int hour, int min) {
-                                        time[0] = hour+":"+min;
-                                        calendar.set(Calendar.HOUR_OF_DAY,hour);
-                                        calendar.set(Calendar.MINUTE,min);
-                                    }
-                                });
-                                timePickerOk.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        String display = ""+date[2]+"/"+(date[1]+1)+"/"+date[0]+", "+time[0];
-                                        addTaskDate.setText(display);
-                                        timePickerDialog.dismiss();
-                                    }
-                                });
-                                timePickerCancel.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        timePickerDialog.dismiss();
-                                    }
-                                });
-                            }
-                        },date[0],date[1],date[2]);
-                        datePickerDialog.show();
-                    }
-                });
-                add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String title = ((EditText)addTaskDialog.findViewById(R.id.addTaskTitle)).getText().toString();
-                        String desc = ((EditText)addTaskDialog.findViewById(R.id.addTaskDescription)).getText().toString();
-                        int repeat = Integer.parseInt(((EditText)addTaskDialog.findViewById(R.id.addTaskRepeat)).getText().toString());
-                        if(!title.equals("")){
-                            if(calendarUsed[0]){
-                                SimpleTask task = new SimpleTask(title,desc,calendar,repeat,false,false);
-                                taskFragment.updateTaskList(task);
-
-//                                Work from here
-                                scheduleNotification(task,calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
-//                                to here
-                            }
-                            else
-                                taskFragment.updateTaskList(new SimpleTask(title,desc));
+                                    final String[] time = new String[1];
+                                    Dialog timePickerDialog = new Dialog(context);
+                                    timePickerDialog.setContentView(R.layout.custom_timepicker_dialog);
+                                    timePickerDialog.show();
+                                    TimePicker timePicker = timePickerDialog.findViewById(R.id.timePicker);
+                                    Button timePickerOk = timePickerDialog.findViewById(R.id.timePickerOkBtn);
+                                    Button timePickerCancel = timePickerDialog.findViewById(R.id.timePickerCancelBtn);
+                                    timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+                                        @Override
+                                        public void onTimeChanged(TimePicker timePicker, int hour, int min) {
+                                            time[0] = hour+":"+min;
+                                            calendar.set(Calendar.HOUR_OF_DAY,hour);
+                                            calendar.set(Calendar.MINUTE,min);
+                                        }
+                                    });
+                                    timePickerOk.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            String display = ""+date[2]+"/"+(date[1]+1)+"/"+date[0]+", "+time[0];
+                                            addTaskDate.setText(display);
+                                            timePickerDialog.dismiss();
+                                        }
+                                    });
+                                    timePickerCancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            timePickerDialog.dismiss();
+                                        }
+                                    });
+                                }
+                            },date[0],date[1],date[2]);
+                            datePickerDialog.show();
                         }
-                        addTaskDialog.dismiss();
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        addTaskDialog.dismiss();
-                    }
-                });
+                    });
+                    add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String title = ((EditText)addTaskDialog.findViewById(R.id.addTaskTitle)).getText().toString();
+                            String desc = ((EditText)addTaskDialog.findViewById(R.id.addTaskDescription)).getText().toString();
+                            int repeat = Integer.parseInt(((EditText)addTaskDialog.findViewById(R.id.addTaskRepeat)).getText().toString());
+                            if(!title.equals("")){
+                                if(calendarUsed[0]){
+                                    SimpleTask task = new SimpleTask(title,desc,calendar,repeat,false,false);
+                                    taskFragment.updateTaskList(task);
+
+    //                                Work from here
+                                    scheduleNotification(task,calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+    //                                to here
+                                }
+                                else
+                                    taskFragment.updateTaskList(new SimpleTask(title,desc));
+                            }
+                            addTaskDialog.dismiss();
+                        }
+                    });
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            addTaskDialog.dismiss();
+                        }
+                    });
+
+                }
             }
         });
+    }
+
+    private void createWeatherDialog(Context context){
+        Dialog addWeatherDialog = new Dialog(context);
+        addWeatherDialog.setContentView(R.layout.add_weather_task_dialog);
+        addWeatherDialog.show();
+        Button add = addWeatherDialog.findViewById(R.id.btnAddWeatherTask);
+        Button cancel = addWeatherDialog.findViewById(R.id.btnCancelWeatherTask);
+        EditText addMinTemp = addWeatherDialog.findViewById(R.id.addMinTemp), addMaxTemp = addWeatherDialog.findViewById(R.id.addMaxTemp);
+        TextView addMinDate = addWeatherDialog.findViewById(R.id.addMinDate), addMaxDate = addWeatherDialog.findViewById(R.id.addMaxDate);
+
+
     }
 
 /*
